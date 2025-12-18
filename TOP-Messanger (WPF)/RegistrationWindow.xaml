@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TOP_Messanger"
         mc:Ignorable="d"
-        Title="Вход" Height="380" Width="600"
+        Title="Вход" 
+        Height="380" 
+        Width="600"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Grid>

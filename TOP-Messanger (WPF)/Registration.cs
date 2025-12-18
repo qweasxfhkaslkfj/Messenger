@@ -5,6 +5,7 @@ namespace TOP_Messanger
 {
     internal class Registration
     {
+        public static string userLogin;
         public static string CurrentLogin { get; private set; } = "";
         public static bool IsGuest { get; private set; } = false;
         public static bool IsServer { get; private set; } = false;
@@ -63,6 +64,7 @@ namespace TOP_Messanger
             if (login == ServerAdminLogin && password == AdminPassword)
             {
                 CurrentLogin = login;
+                userLogin = login;
                 IsServer = true;
                 IsGuest = false;
 
@@ -80,6 +82,7 @@ namespace TOP_Messanger
                 usersLog[login] == password)
             {
                 CurrentLogin = login;
+                userLogin = login;
                 IsGuest = false;
                 IsServer = false;
 
@@ -107,6 +110,7 @@ namespace TOP_Messanger
                 return new RegistrationResult { IsValid = false };
 
             CurrentLogin = login;
+            userLogin= login;
             IsGuest = true;
             IsServer = false;
 

@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TOP_Messanger"
         mc:Ignorable="d"
-        Title="TOP Messenger" 
+        Title="TOP Messenger"
         Height="700" 
         Width="1100"
+        MinHeight="400" 
+        MinWidth="900"
         WindowStartupLocation="CenterScreen"
         Background="#F8F9FA">
-
     <Window.Resources>
         <!-- Стили для кнопок -->
         <Style x:Key="MenuButtonStyle" TargetType="Button">
@@ -213,7 +214,8 @@
                         BorderThickness="0,1,0,0">
                     <Button Content="⚙ Настройки" 
                             Style="{StaticResource MenuButtonStyle}"
-                            HorizontalAlignment="Stretch"/>
+                            HorizontalAlignment="Stretch"
+                            Click="SettingsButton_Click"/>
                 </Border>
             </Grid>
         </Border>
@@ -248,17 +250,18 @@
                          Background="White"
                          BorderThickness="0"
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                         Padding="10">
+                         Padding="10"
+                         SelectionChanged="ListBoxChat_SelectedItem">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border Style="{StaticResource MessageBubbleStyle}"
-                                    Background="#E3F2FD"
-                                    HorizontalAlignment="Left"
-                                    MaxWidth="400">
+                    Background="#E3F2FD"
+                    HorizontalAlignment="Left"
+                    MaxWidth="400">
                                 <TextBlock Text="{Binding}" 
-                                           TextWrapping="Wrap" 
-                                           FontSize="14"
-                                           Foreground="#333333"/>
+                           TextWrapping="Wrap" 
+                           FontSize="14"
+                           Foreground="#333333"/>
                             </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -282,7 +285,8 @@
                                 Content="  📎  " 
                                 Style="{StaticResource SecondaryButtonStyle}"
                                 Margin="0,0,10,0"
-                                Padding="15,0"/>
+                                Padding="15,0"
+                                Click= "SendFileButton_Click"/>
 
                         <!-- Ввод сообщений -->
                         <TextBox Grid.Column="1" 
@@ -293,18 +297,19 @@
                                  BorderBrush="#E0E0E0"
                                  BorderThickness="1"
                                  Background="White"
-                                 AcceptsReturn="True"
+                                 AcceptsReturn="False"
                                  TextWrapping="Wrap"
                                  VerticalScrollBarVisibility="Auto"
                                  MinHeight="40"
-                                 MaxHeight="100"/>
+                                 MaxHeight="100"
+                                 KeyDown="MessageTextBox_KeyDown"/>
 
-                        <!-- Кнопка отправки сообщения -->
                         <Button Grid.Column="2" 
                                 Content="Отправить" 
                                 Style="{StaticResource PrimaryButtonStyle}"
                                 Margin="10,0,0,0"
-                                Padding="25,0"/>
+                                Padding="25,0" 
+                                Click="Button_Click"/>
                     </Grid>
                 </Border>
             </Grid>
@@ -321,7 +326,8 @@
                         Content="🎮 Играть" 
                         Style="{StaticResource PrimaryButtonStyle}"
                         Margin="10"
-                        Height="45"/>
+                        Height="45"
+                        Click="GameButton_Click"/>
 
                 <!-- Область для файлов -->
                 <Border Margin="10"
