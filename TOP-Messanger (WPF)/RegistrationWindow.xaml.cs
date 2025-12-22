@@ -15,32 +15,64 @@ namespace TOP_Messanger
         {
             InitializeComponent();
             registration = new Registration();
+
+            DataBase.CreateDB();
+            DataBase.StartUserTable();
         }
         // Кнопки входа
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(loginTextBox.Text))
-                MessageBox.Show("Пожалуйста, введите логин", 
-                                "Ошибка входа", 
-                                MessageBoxButton.OK, 
-                                MessageBoxImage.Information);
-            else if (String.IsNullOrEmpty(passwordTextBox.Password))
-                MessageBox.Show("Пожалуйста, введите пароль",
-                                "Ошибка входа",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information);
+            string login = loginTextBox.Text.Trim();
+            string password = passwordTextBox.Password;
+
+            if (string.IsNullOrEmpty(login))
+            {
+                MessageBox.Show("Пожалуйста, введите логин!", "Ошибка входа", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Пожалуйста, введите пароль!", "Ошибка входа", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            RegistrationResult result = registration.CheckLoginAndPassword(login, password);
+
+            if (result.IsValid)
+            {
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
+            }
             else
-                UserEnter();
+            {
+                MessageBox.Show("Неверный логин или пароль");
+            }
         }
         private void GuestBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (!String.IsNullOrEmpty(loginTextBox.Text))
-                GuestEnter();
+            string login = loginTextBox.Text.Trim();
+
+            if (string.IsNullOrEmpty(login))
+            {
+                MessageBox.Show("Пожалуйста, введите логин", "Ошибка входа", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            var result = registration.CheckGuestLogin(login);
+
+            if (result.IsValid)
+            {
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
+            }
             else
-                MessageBox.Show("Пожалуйста, введите логин",
-                                "Ошибка входа",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information);
+            {
+                MessageBox.Show("Ошибка входа");
+            }
+
         }
         private void showPasswordBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -55,51 +87,6 @@ namespace TOP_Messanger
                 passwordTextBox.Password = passwordVisibleTextBox.Text;
                 passwordVisibleTextBox.Visibility = Visibility.Collapsed;
                 passwordTextBox.Visibility = Visibility.Visible;
-            }
-        }
-
-        // Метод входа для гостя
-        private void GuestEnter()
-        {
-            var result = registration.CheckGuestLogin(loginTextBox.Text);
-
-            if (result.IsValid)
-            {
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Ошибка входа! \nПожалуйста, повторите попытку позже", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-        // Метод входа для пользователя
-        private void UserEnter()
-        {
-            string password = passwordTextBox.Password.ToString();
-            var result = registration.CheckLoginAndPassword(
-                    loginTextBox.Text,
-                    password);
-
-            if (result.IsValid)
-            {
-                if (Registration.IsServer)
-                {
-                    MessageBox.Show("Выполнен вход как сервер");
-                }
-                else
-                {
-                    MessageBox.Show("Выполнен вход как пользователь");
-                }
-
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Неверный логин или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

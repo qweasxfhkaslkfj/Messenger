@@ -289,7 +289,7 @@
                                   Foreground="#666666"
                                   Margin="0,0,0,15"
                                   TextWrapping="Wrap"/>
-
+                        
                         <!-- Карточка рейтинга -->
                         <Border Background="#F8F9FA"
                                 BorderBrush="#E0E0E0"
@@ -330,6 +330,77 @@
                                               TextAlignment="Right"/>
                                 </StackPanel>
                             </Grid>
+                        </Border>
+
+                        <!-- Администрирование -->
+                        <Border Name="AdminSection"
+                                BorderBrush="#E0E0E0"
+                                BorderThickness="0,0,0,1"
+                                Padding="0,0,0,20"
+                                Margin="0,0,0,20"
+                                Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock Text="🛡 Администрирование" 
+                                           Style="{StaticResource SectionHeaderStyle}"/>
+
+                                <TextBlock Text="Управление пользователями системы"
+                                           FontSize="14"
+                                           Foreground="#666666"
+                                           Margin="0,0,0,15"
+                                           TextWrapping="Wrap"/>
+
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                    <Button Name="AddUserButton"
+                                            Content="➕ Добавить пользователя"
+                                            Style="{StaticResource PrimaryButtonStyle}"
+                                            Margin="0,0,10,0"
+                                            Padding="15,0"
+                                            Click="AddUserButton_Click"/>
+
+                                    <Button Name="RemoveUserButton"
+                                            Content="➖ Удалить пользователя"
+                                            Style="{StaticResource PrimaryButtonStyle}"
+                                            Margin="0,0,10,0"
+                                            Padding="15,0"
+                                            Click="RemoveUserButton_Click"/>
+                                </StackPanel>
+
+                                <Button Name="EditUserButton"
+                                        Content="✏️ Изменить данные пользователя"
+                                        Style="{StaticResource PrimaryButtonStyle}"
+                                        Margin="0,0,0,10"
+                                        Padding="15,0"
+                                        HorizontalAlignment="Left"
+                                        Click="EditUserButton_Click"/>
+
+                                <!-- Список пользователей -->
+                                <Border Background="#F8F9FA"
+                                        BorderBrush="#E0E0E0"
+                                        BorderThickness="1"
+                                        CornerRadius="8"
+                                        Padding="15"
+                                        Margin="0,10,0,0">
+                                    <StackPanel>
+                                        <TextBlock Text="Текущие пользователи:"
+                                                   FontSize="14"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="#333333"
+                                                   Margin="0,0,0,10"/>
+
+                                        <ScrollViewer MaxHeight="200"
+                                                      VerticalScrollBarVisibility="Auto">
+                                            <StackPanel Name="UsersListPanel">
+                                                <TextBlock Text="Загрузка списка пользователей..."
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           Margin="10"
+                                                           Foreground="#888888"
+                                                           FontStyle="Italic"/>
+                                            </StackPanel>
+                                        </ScrollViewer>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
                         </Border>
                     </StackPanel>
                 </StackPanel>

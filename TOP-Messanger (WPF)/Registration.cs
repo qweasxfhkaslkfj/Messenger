@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Windows;
+using Microsoft.Data.Sqlite;
 
 namespace TOP_Messanger
 {
@@ -9,32 +10,21 @@ namespace TOP_Messanger
         public static string CurrentLogin { get; private set; } = "";
         public static bool IsGuest { get; private set; } = false;
         public static bool IsServer { get; private set; } = false;
+        public static bool IsServerRunning { get; set; } = false;
 
-        private Dictionary<string, string> usersLog;
         private const string ServerAdminLogin = "server";
         private const string AdminPassword = "pAv0Pav183";
 
         // Конструктор Registration
         public Registration()
         {
-            usersLog = new Dictionary<string, string>();
-            UsersLogins();
+            if (!System.IO.File.Exists("Messenger.db"))
+            {
+                DataBase.CreateDB();
+                DataBase.StartUserTable();
+            }
         }
-        // Список логинов и паролей
-        private void UsersLogins()
-        {
-            usersLog.Add("krs333", "krs123");
-            usersLog.Add("Pagan821", "ars123");
-            usersLog.Add("denden", "denzem123");
-            usersLog.Add("cat_noir", "denzol123");
-            usersLog.Add("lady_bug", "kerya123");
-            usersLog.Add("tabeer", "alb123");
-            usersLog.Add("lushPush", "ol123");
-            usersLog.Add("Siles", "zah123");
-            usersLog.Add("USF055", "usf123");
-            usersLog.Add("vld666", "vld123");
-            usersLog.Add("ananas", "nast123");
-        }
+
         // Роль участника
         public static string CurrentRole
         {
@@ -49,24 +39,29 @@ namespace TOP_Messanger
             }
         }
 
-        // Проверка пользовательской регистрации
+        // Проверка пользователя
         public RegistrationResult CheckLoginAndPassword(string login, string password)
         {
             ResetSession();
 
-            if (String.IsNullOrWhiteSpace(login) || 
+            if (String.IsNullOrWhiteSpace(login) ||
                 String.IsNullOrWhiteSpace(password))
             {
                 return new RegistrationResult { IsValid = false };
-            }    
+            }
 
-            // Проверка подключения сервера
             if (login == ServerAdminLogin && password == AdminPassword)
             {
                 CurrentLogin = login;
                 userLogin = login;
                 IsServer = true;
                 IsGuest = false;
+
+                if (!IsServerRunning)
+                {
+                    ChatServer.Instance.Start();
+                    IsServerRunning = true;
+                }
 
                 return new RegistrationResult
                 {
@@ -77,31 +72,59 @@ namespace TOP_Messanger
                 };
             }
 
-            // Проверка подключения обычных пользователей
-            if (usersLog.ContainsKey(login) && 
-                usersLog[login] == password)
+            try
             {
-                CurrentLogin = login;
-                userLogin = login;
-                IsGuest = false;
-                IsServer = false;
-
-                return new RegistrationResult
+                if (ValidateUserInDatabase(login, password))
                 {
-                    IsValid = true,
-                    Login = login,
-                    IsServer = false,
-                    IsGuest = false
-                };
+                    CurrentLogin = login;
+                    userLogin = login;
+                    IsGuest = false;
+                    IsServer = false;
+
+                    return new RegistrationResult
+                    {
+                        IsValid = true,
+                        Login = login,
+                        IsServer = false,
+                        IsGuest = false
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при проверке пользователя в БД: {ex.Message}");
+                MessageBox.Show($"Ошибка подключения к базе данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            // Неверные данные
             return new RegistrationResult
             {
                 IsValid = false
             };
         }
-        // Проверка гостевой регистрации
+
+        // Проверка через базу данных
+        private bool ValidateUserInDatabase(string login, string password)
+        {
+            try
+            {
+                using (var conn = new SqliteConnection($"Data Source={DataBase.connStr}"))
+                {
+                    conn.Open();
+                    var cmd = conn.CreateCommand();
+                    cmd.CommandText = $"SELECT userId FROM user WHERE userName = '{login}' AND userPassword = '{password}'";
+
+                    var result = cmd.ExecuteScalar();
+                    return result != null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка проверки пользователя: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        // Проверка гостя
         public RegistrationResult CheckGuestLogin(string login)
         {
             ResetSession();
@@ -110,7 +133,7 @@ namespace TOP_Messanger
                 return new RegistrationResult { IsValid = false };
 
             CurrentLogin = login;
-            userLogin= login;
+            userLogin = login;
             IsGuest = true;
             IsServer = false;
 
@@ -121,12 +144,23 @@ namespace TOP_Messanger
                 IsGuest = true
             };
         }
+
         // Сброс прошлой сессии
         private void ResetSession()
         {
             CurrentLogin = "";
             IsGuest = false;
             IsServer = false;
+        }
+
+        // Остановка сервера
+        public static void StopServer()
+        {
+            if (IsServerRunning)
+            {
+                ChatServer.Instance.Stop();
+                IsServerRunning = false;
+            }
         }
     }
 
