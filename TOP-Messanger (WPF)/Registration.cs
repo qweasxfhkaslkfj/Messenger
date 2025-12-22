@@ -4,7 +4,7 @@ using Microsoft.Data.Sqlite;
 
 namespace TOP_Messanger
 {
-    internal class Registration
+    public class Registration
     {
         public static string userLogin;
         public static string CurrentLogin { get; private set; } = "";
