@@ -94,6 +94,7 @@
     <Compile Include="ChatServer.cs" />
     <Compile Include="DataBase.cs" />
     <Compile Include="Registration.cs" />
+    <Compile Include="RegistrationResult.cs" />
     <Compile Include="RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
     </Compile>

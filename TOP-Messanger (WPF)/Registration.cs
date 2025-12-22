@@ -4,13 +4,13 @@ using Microsoft.Data.Sqlite;
 
 namespace TOP_Messanger
 {
-    internal class Registration
+    public class Registration
     {
         public static string userLogin;
-        public static string CurrentLogin { get; private set; } = "";
-        public static bool IsGuest { get; private set; } = false;
-        public static bool IsServer { get; private set; } = false;
-        public static bool IsServerRunning { get; set; } = false;
+        public static string CurrentLogin { get;  set; }
+        public static bool IsGuest { get;  set; }
+        public static bool IsServer { get;  set; }
+        public static bool IsServerRunning { get; set; }
 
         private const string ServerAdminLogin = "server";
         private const string AdminPassword = "pAv0Pav183";
@@ -18,6 +18,12 @@ namespace TOP_Messanger
         // Конструктор Registration
         public Registration()
         {
+            userLogin = "";
+            CurrentLogin = "";
+            IsGuest = false;
+            IsServer = false;
+            IsServerRunning = false;
+
             if (!System.IO.File.Exists("Messenger.db"))
             {
                 DataBase.CreateDB();
@@ -30,13 +36,19 @@ namespace TOP_Messanger
         {
             get
             {
-                if (IsServer)
-                    return "Server";
-                else if (IsGuest)
-                    return "Guest";
-                else
-                    return "User";
+                return CurrentRole;
             }
+
+            set
+            {
+                if (IsServer)
+                    CurrentRole = "Server";
+                else if (IsGuest)
+                    CurrentRole = "Guest";
+                else
+                    CurrentRole = "User";
+            }
+
         }
 
         // Проверка пользователя
@@ -146,7 +158,7 @@ namespace TOP_Messanger
         }
 
         // Сброс прошлой сессии
-        private void ResetSession()
+        public void ResetSession()
         {
             CurrentLogin = "";
             IsGuest = false;
@@ -162,13 +174,5 @@ namespace TOP_Messanger
                 IsServerRunning = false;
             }
         }
-    }
-
-    public class RegistrationResult
-    {
-        public bool IsValid { get; set; }
-        public bool IsGuest { get; set; }
-        public bool IsServer { get; set; }
-        public string Login { get; set; }
     }
 }
