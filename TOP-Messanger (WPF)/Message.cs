@@ -24,7 +24,9 @@ namespace TOP_Messanger
                 this.senderColor = GetDefaultSenderColor(sender);
         }
 
-        // Цвета сообщений
+        /// <summary>
+        /// Метод добавления цветов пользователей
+        /// </summary>
         private static string GetDefaultSenderColor(string sender)
         {
             int hash = Math.Abs(sender.GetHashCode());
@@ -48,7 +50,9 @@ namespace TOP_Messanger
             return colors[hash % colors.Length];
         }
 
-        // Сообщение
+        /// <summary>
+        /// Перегрузка метода ToString для 
+        /// </summary>
         public override string ToString()
         {
             return $"[{Time:HH:mm}] {Sender}: {Text}";

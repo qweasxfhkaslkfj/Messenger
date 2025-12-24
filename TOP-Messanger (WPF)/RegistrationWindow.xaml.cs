@@ -19,7 +19,10 @@ namespace TOP_Messanger
             DataBase.CreateDB();
             DataBase.StartUserTable();
         }
-        // Кнопки входа
+
+        /// <summary>
+        /// Обработчики событий нажатий на кнопки
+        /// </summary>
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
             string login = loginTextBox.Text.Trim();
@@ -90,7 +93,9 @@ namespace TOP_Messanger
             }
         }
 
-        // Обработчик нажатия на Enter
+        /// <summary>
+        /// Обработчик события нажатия на Enter
+        /// </summary>
         private void LoginTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)

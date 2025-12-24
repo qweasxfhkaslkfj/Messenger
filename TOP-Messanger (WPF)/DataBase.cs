@@ -4,12 +4,18 @@ using System.Windows;
 
 namespace TOP_Messanger
 {
+    /// <summary>
+    /// Класс, для создания базы данных Messenger.db
+    /// </summary>
+
     internal class DataBase
     {
         public static string connStr = "Messenger.db";
         static SqliteConnection conn;
 
-        // Первое создание БД
+        /// <summary>
+        /// Процедура инициализирующая создание БД и нужных таблиц
+        /// </summary>
         public static void CreateDB()
         {
             try
@@ -46,6 +52,9 @@ namespace TOP_Messanger
                     conn.Close();
             }
         }
+        /// <summary>
+        /// Процедура устанавливающая начальные данные
+        /// </summary>
         public static void StartUserTable()
         {
             try
@@ -80,7 +89,9 @@ namespace TOP_Messanger
             }
         }
 
-        // Добавление в таблицу
+        /// <summary>
+        /// Процедуры добавления данных в БД
+        /// </summary>
         public static void InsertUserTable(string userName, string password, string role, string color, string ip)
         {
             if (role != "user" && role != "server")
@@ -142,7 +153,9 @@ namespace TOP_Messanger
             }
         }
 
-        // Удаление из таблицы
+        /// <summary>
+        /// Процедуры удаления данных в БД
+        /// </summary>
         public static void DeleteFromUserTable(int userId)
         {
             try
@@ -196,7 +209,9 @@ namespace TOP_Messanger
             }
         }
 
-        // Проверка пользователя
+        /// <summary>
+        /// Метод проверки пользователей
+        /// </summary>
         public static bool ValidateUser(string userName, string password)
         {
             SqliteConnection conn = null;

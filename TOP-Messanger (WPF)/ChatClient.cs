@@ -22,7 +22,9 @@ namespace TOP_Messanger
             mainWindow = window;
         }
 
-        // Подключение к серверу
+        /// <summary>
+        /// Метод подключения к серверу
+        /// </summary>
         public bool Connect()
         {
             try
@@ -50,7 +52,9 @@ namespace TOP_Messanger
             }
         }
 
-        // Информация о логине
+        /// <summary>
+        /// Процедура получения логина
+        /// </summary>
         private void SendLoginInfo()
         {
             string login = Registration.userLogin;
@@ -59,7 +63,9 @@ namespace TOP_Messanger
             SendMessage(message);
         }
 
-        // Отправка сообщения на сервер
+        /// <summary>
+        /// Процедура отправки сообщения на сервер
+        /// </summary>
         public void SendMessage(string message)
         {
             try
@@ -77,7 +83,9 @@ namespace TOP_Messanger
                 Disconnect();
             }
         }
-        // Получение сообщений от сервера
+        /// <summary>
+        /// Процедура получения сообщений от сервера
+        /// </summary>
         private void ReceiveMessages()
         {
             try
@@ -112,7 +120,9 @@ namespace TOP_Messanger
             }
         }
 
-        // Отключение от сервера
+        /// <summary>
+        /// Процедура отключение от сервера
+        /// </summary>
         public void Disconnect()
         {
             try

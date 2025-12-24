@@ -15,7 +15,9 @@ namespace TOP_Messanger
         private const string ServerAdminLogin = "server";
         private const string AdminPassword = "pAv0Pav183";
 
-        // Конструктор Registration
+        /// <summary>
+        /// Конструктор класса Registration
+        /// </summary>
         public Registration()
         {
             if (!System.IO.File.Exists("Messenger.db"))
@@ -25,7 +27,9 @@ namespace TOP_Messanger
             }
         }
 
-        // Роль участника
+        /// <summary>
+        /// Метод определения ролей участников
+        /// </summary>
         public static string CurrentRole
         {
             get
@@ -39,7 +43,9 @@ namespace TOP_Messanger
             }
         }
 
-        // Проверка пользователя
+        /// <summary>
+        /// Метод проверки пользователей
+        /// </summary>
         public RegistrationResult CheckLoginAndPassword(string login, string password)
         {
             ResetSession();
@@ -102,7 +108,9 @@ namespace TOP_Messanger
             };
         }
 
-        // Проверка через базу данных
+        /// <summary>
+        /// Метод проверки через бд
+        /// </summary>
         private bool ValidateUserInDatabase(string login, string password)
         {
             try
@@ -124,7 +132,9 @@ namespace TOP_Messanger
             }
         }
 
-        // Проверка гостя
+        /// <summary>
+        /// Метод проверки гостей
+        /// </summary>
         public RegistrationResult CheckGuestLogin(string login)
         {
             ResetSession();
@@ -145,7 +155,9 @@ namespace TOP_Messanger
             };
         }
 
-        // Сброс прошлой сессии
+        /// <summary>
+        /// Процедура сброса прошлой сессии
+        /// </summary>
         private void ResetSession()
         {
             CurrentLogin = "";
@@ -153,7 +165,9 @@ namespace TOP_Messanger
             IsServer = false;
         }
 
-        // Остановка сервера
+        /// <summary>
+        /// Процедура остановки сервера
+        /// </summary>
         public static void StopServer()
         {
             if (IsServerRunning)

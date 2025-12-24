@@ -22,7 +22,9 @@ namespace TOP_Messanger
                 LoadUsersList();
         }
 
-        // Проверка админа
+        /// <summary>
+        /// Процедура проверки админских прав
+        /// </summary>
         private void CheckAdminAccess()
         {
             if (Registration.IsServer)
@@ -45,7 +47,9 @@ namespace TOP_Messanger
                     stackPanel.Children.Insert(stackPanel.Children.Count - 1, adminButton);
             }
         }
-        // Список пользователей
+        /// <summary>
+        /// Процедура инициализирующая списки пользователей
+        /// </summary>
         private void LoadUsersList()
         {
             try
@@ -110,7 +114,9 @@ namespace TOP_Messanger
                 });
             }
         }
-        // Получение пользователей из БД
+        /// <summary>
+        /// Метод получения пользователей из БД
+        /// </summary>
         private List<UserInfo> GetUsersFromDatabase()
         {
             var users = new List<UserInfo>();
@@ -144,7 +150,9 @@ namespace TOP_Messanger
 
             return users;
         }
-        // Добавление пользователей
+        /// <summary>
+        /// Обработчики событий нажатий на кнопки
+        /// </summary>
         private void AddUserButton_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new AdminUserDialog("add");
@@ -258,7 +266,10 @@ namespace TOP_Messanger
             }
 
         }
-        // Юзер по имени
+
+        /// <summary>
+        /// Метод получения пользователя по имени из БД
+        /// </summary>
         private int GetUserIdByName(string userName)
         {
             try

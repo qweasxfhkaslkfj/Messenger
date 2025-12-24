@@ -33,7 +33,9 @@ namespace TOP_Messanger
             this.mode = mode;
             InitializeDialog();
         }
-        // Создание интерфейса
+        /// <summary>
+        /// Процедура создания интерфейса
+        /// </summary>
         private void InitializeDialog()
         {
             switch (mode)
@@ -60,6 +62,9 @@ namespace TOP_Messanger
                     break;
             }
         }
+        /// <summary>
+        /// Обработчики событий нажатия на кнопки
+        /// </summary>
         // Кнопка действия
         private void ActionButton_Click(object sender, RoutedEventArgs e)
         {

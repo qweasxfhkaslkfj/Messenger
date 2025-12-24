@@ -33,7 +33,9 @@ namespace TOP_Messanger
 
         private ChatServer() { }
 
-        // Запуск сервера
+        /// <summary>
+        /// Процедура запуска сервера
+        /// </summary>
         public void Start()
         {
             try
@@ -60,7 +62,9 @@ namespace TOP_Messanger
                 MessageBox.Show($"Ошибка запуска сервера: {ex.Message}", "Ошибка сервера", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        // Слушатель клиентов
+        /// <summary>
+        /// Процедура запуска слушателя клиентов
+        /// </summary>
         private void ListenForClients()
         {
             try
@@ -84,7 +88,6 @@ namespace TOP_Messanger
             }
             catch (Exception) { }
         }
-
         private void HandleClient(object obj)
         {
             TcpClient client = (TcpClient)obj;
@@ -139,7 +142,9 @@ namespace TOP_Messanger
                 EnqueueMessage($"[Сервер] Пользователь отключился");
             }
         }
-        // Добавление сообщения
+        /// <summary>
+        /// Процедура добавления сообщений
+        /// </summary>
         public void EnqueueMessage(string message)
         {
             lock (lockObject)
@@ -147,7 +152,9 @@ namespace TOP_Messanger
                 messageQueue.Enqueue(message);
             }
         }
-        // Рассылка сообщений
+        /// <summary>
+        /// Процедура рассылки сообщений
+        /// </summary>
         private void BroadcastMessages()
         {
             while (isRunning)
@@ -202,7 +209,9 @@ namespace TOP_Messanger
                 catch (Exception) { }
             }
         }
-        // Остановка сервера
+        /// <summary>
+        /// Процедура остановки сервера
+        /// </summary>
         public void Stop()
         {
             isRunning = false;

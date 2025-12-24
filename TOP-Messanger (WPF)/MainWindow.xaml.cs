@@ -38,7 +38,9 @@ namespace TOP_Messanger
 
         }
 
-        // Добавление сообщений в чат
+        /// <summary>
+        /// Процедура добавления сообщений в чат
+        /// </summary>
         public void AddMessage(string message)
         {
             try
@@ -72,7 +74,9 @@ namespace TOP_Messanger
             }
         }
 
-        // Интерфейс отправки сообщений
+        /// <summary>
+        /// Процедуры отправки сообщений
+        /// </summary>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             SendMessage();
@@ -85,8 +89,6 @@ namespace TOP_Messanger
                 e.Handled = true;
             }
         }
-
-        // Отправка сообщений
         private void SendMessage()
         {
             string messageText = MessageTextBox.Text.Trim();
@@ -135,7 +137,9 @@ namespace TOP_Messanger
             }
         }
 
-        // Копирование сообщений в буфер обмена
+        /// <summary>
+        /// Процедура копирования сообщений в буфер обмена
+        /// </summary>
         private void ListBoxChat_SelectedItem(object sender, EventArgs e)
         {
             if (listBoxChat.SelectedItem != null)
@@ -144,6 +148,9 @@ namespace TOP_Messanger
                 Clipboard.SetText(selectedText);
             }
         }
+        /// <summary>
+        /// Обработчики событий нажатий на кнопки
+        /// </summary>
         // Кнопка настроек
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
@@ -162,7 +169,9 @@ namespace TOP_Messanger
             MessageBox.Show("Функция отправки файла находится в разработке", "В разработке", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        // Закрытие приложения
+        /// <summary>
+        /// Обработчики закрытия окна
+        /// </summary>
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
