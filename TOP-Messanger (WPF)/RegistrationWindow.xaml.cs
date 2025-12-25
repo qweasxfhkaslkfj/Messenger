@@ -16,8 +16,8 @@ namespace TOP_Messanger
             InitializeComponent();
             registration = new Registration();
 
-            DataBase.CreateDB();
-            DataBase.StartUserTable();
+            //DataBase.CreateDB();
+            //DataBase.StartUserTable();
         }
 
         /// <summary>

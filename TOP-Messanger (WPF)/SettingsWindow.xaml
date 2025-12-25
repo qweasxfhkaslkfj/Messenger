@@ -10,7 +10,7 @@
         Width="900"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        Background="#F8F9FA">
+        Background="#F8F9FA" Icon="/messenger.png">
     <Window.Resources>
         <!-- Стили из MainWindow -->
         <Style x:Key="MenuButtonStyle" TargetType="Button">

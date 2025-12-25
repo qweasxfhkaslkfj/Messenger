@@ -5,7 +5,7 @@
         Height="300" 
         Width="400"
         WindowStartupLocation="CenterOwner"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize" Icon="/messenger.png">
 
     <Grid Margin="20">
         <Grid.RowDefinitions>

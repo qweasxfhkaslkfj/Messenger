@@ -9,7 +9,7 @@
         Height="380" 
         Width="600"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" Icon="/messenger.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
